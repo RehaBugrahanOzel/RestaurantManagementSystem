@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "addAndRemoveAdmin";
+}
+
+<!-- Template Main CSS File -->
+
+<link href="assets/css/pagePrivacy.css" rel="stylesheet">
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+        <h1 class="logo me-auto me-lg-0"><a asp-area="" asp-controller="Home" asp-action="Index">DEUCeng Dragon</a></h1>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="book-a-table-btn scrollto d-none d-lg-flex">Home</a>
+
+    </div>
+</header><!-- End Header -->
+
+<div>
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2><a asp-area="" asp-controller="Home" asp-action="adminMenu">Admin Panel</a></h2>
+                </div>
+            </div>
+        </section>
+        <section id="book-a-table" class="book-a-table">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>ADMIN</h2>
+                    <p>Menu</p>
+                </div>
+                <table>
+                    <tr>
+                        <td>Id</td>
+                        <td>Username</td>
+                        <td>Password</td>
+                        <td>Button</td>
+                    </tr>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var Data in Model)
+                            {
+
+
+
+                                <tr>
+                                    
+                                    <td>
+                                        @Data.AdminId
+                                    </td>
+                                    <td>
+                                        @Data.AdminUsername
+                                    </td>
+                                    <td>
+                                        @Data.AdminPassword
+                                    </td>
+                                    <td>
+                                        <a>@Html.ActionLink("REMOVE", "removeAdmin", "Home", new { AdminId = Data.AdminId }, null)</a>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                    }
+                    <tr>
+
+                        <form action="addNewAdmin" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+                        <td>
+                            <div class="form-group mt-3">
+                                <div class="col-lg-4 col-md-6 form-group">
+                                    <input type="text" style="text-align: center;" name="AdminId" class="form-control" id="name" placeholder="Id" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                                    <div class="validate"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group mt-3">
+                                <div class="col-lg-4 col-md-6 form-group">
+                                    <input type="text" style="text-align: center;" name="AdminUsername" class="form-control" id="name" placeholder="Username" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                                    <div class="validate"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group mt-3">
+                                <div class="col-lg-4 col-md-6 form-group">
+                                    <input type="password" style="text-align: center;" name="AdminPassword" class="form-control" id="name" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                                    <div class="validate"></div>
+                                </div>
+                            </div>
+                        </td>
+                        
+                        <td>
+                            <div><button type="submit">Add</button></div>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    </table>
+
+        </div>
+        </section><!-- End Book A Table Section -->
+        </main>
+        </div>
+

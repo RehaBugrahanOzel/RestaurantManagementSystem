@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "adminMenuEdit";
+}
+
+<!-- Template Main CSS File -->
+
+<link href="assets/css/pagePrivacy.css" rel="stylesheet">
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+        <h1 class="logo me-auto me-lg-0"><a asp-area="" asp-controller="Home" asp-action="Index">DEUCeng Dragon</a></h1>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="book-a-table-btn scrollto d-none d-lg-flex">Home</a>
+
+    </div>
+</header><!-- End Header -->
+
+<div>
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2><a asp-area="" asp-controller="Home" asp-action="adminMenu">Admin Panel</a></h2>
+                </div>
+            </div>
+        </section>
+        <section id="book-a-table" class="book-a-table">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>ADMIN</h2>
+                    <p>Menu</p>
+                </div>
+                <table>
+                    <tr>
+                        <td>Id</td>
+                        <td>Image</td>
+                        <td>Category</td>
+                        <td>Name</td>
+                        <td>About</td>
+                        <td>Price</td>
+                    </tr>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var Data in Model)
+                            {
+                                String image = Data.Image;
+                                String foodId = Data.FoodId;
+
+
+
+                                        <tr>
+                                            <div class="col-lg-6 menu-item filter-@Data.Catagory">
+                                            <td>
+                                                @Data.FoodId
+                                            </td>
+                                            <td>
+                                                <img src=" @image " class="menu-img" alt="" style="width: 100%; padding-left: 100px;">
+                                            </td>
+                                            <td>
+                                                @Data.Catagory
+                                            </td>
+                                            <td>
+                                                @Data.FoodName
+                                            </td>
+                                            <td>
+                                                @Data.About
+                                            </td>
+                                            <td>
+                                                @Data.Price
+                                            </td>
+                                            <td>
+                                                <a>@Html.ActionLink("REMOVE", "removeFromMenu", "Home", new { CartFoodId = foodId }, null)</a>
+                                            </td>
+</div>
+                                </tr>
+                            }
+                        }
+                     }
+        <tr>
+
+            <form action="addNewMenuItem" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+            <td>
+                <div class="form-group mt-3">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <input type="text" style="text-align: center;" name="Id" class="form-control" id="name" placeholder="Id" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                        <div class="validate"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group mt-3">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <input type="text" style="text-align: center;" name="Image" class="form-control" id="name" placeholder="Image" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                        <div class="validate"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group mt-3">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <input type="text" style="text-align: center;" name="Category" class="form-control" id="name" placeholder="Category" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                        <div class="validate"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group mt-3">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <input type="text" style="text-align: center;" name="Name" class="form-control" id="name" placeholder="Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                        <div class="validate"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group mt-3">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <input type="text" style="text-align: center;" name="About" class="form-control" id="name" placeholder="About" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                        <div class="validate"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="form-group mt-3">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <input type="text" style="text-align: center;" name="Price" class="form-control" id="name" placeholder="Price" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+                        <div class="validate"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div><button type="submit">Add</button></div>
+                </form>
+            </td>
+
+        </tr>
+
+                </table>
+
+            </div>
+        </section><!-- End Book A Table Section -->
+    </main>
+</div>
+

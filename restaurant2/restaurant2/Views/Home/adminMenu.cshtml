@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "adminMenu";
+}
+
+<!-- Template Main CSS File -->
+
+<link href="assets/css/pagePrivacy.css" rel="stylesheet">
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+        <h1 class="logo me-auto me-lg-0"><a asp-area="" asp-controller="Home" asp-action="Index">DEUCeng Dragon</a></h1>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="book-a-table-btn scrollto d-none d-lg-flex">Home</a>
+
+    </div>
+</header><!-- End Header -->
+
+<div>
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Admin Panel</h2>
+                </div>
+            </div>
+        </section>
+        <section id="book-a-table" class="book-a-table">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>ADMIN</h2>
+                    <p>Menu</p>
+                </div>
+                <ul>
+                    <li><a>@Html.ActionLink("Menu", "adminMenuEdit", "Home", new { }, null)</a></li>
+                    <li><a>@Html.ActionLink("Orders", "showOrders", "Home", new { }, null)</a></li>
+                    <li><a>@Html.ActionLink("List Customers", "listCustomers", "Home", new { }, null)</a></li>
+                    <li><a>@Html.ActionLink("Add Remove Admin", "addAndRemoveAdmin", "Home", new { }, null)</a></li>
+                </ul>
+
+            </div>
+        </section><!-- End Book A Table Section -->
+    </main>
+</div>
+

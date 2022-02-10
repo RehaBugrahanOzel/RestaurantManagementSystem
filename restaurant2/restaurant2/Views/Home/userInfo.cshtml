@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewData["Title"] = "userInfo";
+}
+<!-- Template Main CSS File -->
+
+<link href="assets/css/pagePrivacy.css" rel="stylesheet">
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+        <h1 class="logo me-auto me-lg-0"><a asp-area="" asp-controller="Home" asp-action="Index">DEUCeng Dragon</a></h1>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="book-a-table-btn scrollto d-none d-lg-flex">Home</a>
+
+    </div>
+</header><!-- End Header -->
+
+<div>
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Order Succesfully Added!</h2>
+
+                </div>
+
+            </div>
+        </section>
+        <div class="shopping-cart">
+
+            <div>
+                <table>
+                    <tr>
+                        <td style="padding:10px;"><label class="product-image">Image</label></td>
+                        <td style="padding:10px;"><label class="product-details">Product</label></td>
+                        <td style="padding:10px;"><label class="product-price">Details</label></td>
+                        <td style="padding:10px;"><label class="product-price">Price</label></td>
+                        <td style="padding:10px;"><label class="product-quantity">Quantity</label></td>
+                        <td style="padding:10px;"><label class="product-line-price">Total</label></td>
+                    </tr>
+                    @{
+                        String orderInfo = "";
+                        int orderPrice = 0;
+                        if (Model != null)
+                        {
+                            foreach (var Data in Model)
+                            {
+
+                                if (Data.OrderCartFoodId != 0)
+                                {
+
+                                    int foodId = Data.OrderCartFoodId;
+                                    int quantity = Data.OrderCartQuantity;
+                                    int price = Data.OrderCartPrice;
+                                    <tr>
+                                        <td style="padding: 10px;"><img style="max-width: 50%; height: auto; border-radius: 20px;" src="@Data.OrderCartImage"></td>
+                                        <td style="padding: 10px;"><div class="product-title">@Data.OrderCartFoodName</div></td>
+                                        <td style="padding: 10px;"><p class="product-description">@Data.OrderCartAbout</p></td>
+                                        <td style="padding: 10px;"><div class="product-price">@Data.OrderCartPrice</div></td>
+                                        @{orderInfo = orderInfo + "/" + Data.OrderCartFoodName + "-" + quantity;}
+                                        <td style="padding:10px;">
+                                            <div class="product-quantity">
+
+
+                                                @quantity
+
+
+                                            </div>
+                                        </td>
+
+                                        @{
+                                            Data.OrderCartTotalPrice = Data.OrderCartPrice * Data.OrderCartQuantity;
+                                            orderPrice += Data.OrderCartTotalPrice;
+                                        }
+                                        <td style="padding:10px;"><div class="product-line-price">@Data.OrderCartTotalPrice</div></td>
+                                    </tr>
+                                }
+
+                            }
+                        }
+
+                    }
+                    <tr>&nbsp</tr>
+                    <tr>
+                        <td>
+                            <h4>
+                                CustomerInfo
+                            </h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;"><label class="product-image">Name</label></td>
+                        <td style="padding:10px;"><label class="product-details">Last Name</label></td>
+                        <td style="padding:10px;"><label class="product-price">Email</label></td>
+                        <td style="padding:10px;"><label class="product-price">PhoneNo</label></td>
+                        <td style="padding:10px;"><label class="product-quantity">Address</label></td>
+                        <td style="padding:10px;"><label class="product-line-price">Message</label></td>
+                    </tr>
+                    @{
+                        String customer_Info = "";
+                        if (Model != null)
+                        {
+                            foreach (var Data in Model)
+                            {
+                                
+                                <tr>
+                                    <td style="padding: 10px;"><p class="product-description">@Data.OrderCustomerName</p></td>
+                                    <td style="padding: 10px;"><p class="product-description">@Data.OrderCustomerLastName</p></td>
+                                    <td style="padding: 10px;"><p class="product-description">@Data.OrderCustomerEmail</p></td>
+                                    <td style="padding: 10px;"><p class="product-description">@Data.OrderCustomerPhoneNo</p></td>
+                                    <td style="padding: 10px;"><p class="product-description">@Data.OrderCustomerAddress</p></td>
+                                    <td style="padding: 10px;"><p class="product-description">@Data.OrderCustomerMessage</p></td>
+                                </tr>
+
+                                customer_Info = Data.OrderCustomerName + " " + Data.OrderCustomerLastName + " / " + Data.OrderCustomerEmail + " / " + Data.OrderCustomerPhoneNo + " / " + Data.OrderCustomerAddress + " / " + Data.OrderCustomerMessage;
+
+                            }
+                        }
+                    }
+
+                </table>
+                @Html.ActionLink("Place the Order", "fillingOrderTable", "Home", new { OrderInfo = orderInfo, OrderPrice = orderPrice, CustomerInfo = customer_Info }, null)
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,225 @@
+﻿@{
+    ViewData["Title"] = "Your Card";
+}
+<!-- Template Main CSS File -->
+
+<link href="assets/css/pagePrivacy.css" rel="stylesheet">
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+        <h1 class="logo me-auto me-lg-0"><a asp-area="" asp-controller="Home" asp-action="Index">DEUCeng Dragon</a></h1>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="book-a-table-btn scrollto d-none d-lg-flex">Home</a>
+
+    </div>
+</header><!-- End Header -->
+
+<div>
+
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Shopping Cart</h2>
+                </div>
+
+            </div>
+        </section>
+
+        
+        <div class="shopping-cart">
+
+            <div>
+                <table>
+                    <tr>
+                        <td style="padding:10px;"><label class="product-image">Image</label></td>
+                        <td style="padding:10px;"><label class="product-details">Product</label></td>
+                        <td style="padding:10px;"><label class="product-price">Details</label></td>
+                        <td style="padding:10px;"><label class="product-price">Price</label></td>
+                        <td style="padding:10px;"><label class="product-quantity">Quantity</label></td>
+                        <td style="padding:10px;"><label class="product-removal">Remove</label></td>
+                        <td style="padding:10px;"><label class="product-line-price">Total</label></td>
+                    </tr>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var Data in Model)
+                            {
+                                int foodId = Data.CartFoodId;
+                                int quantity = Data.CartQuantity;
+                                int price = Data.CartPrice;
+                                <tr>
+                                    <td style=""><img style="max-width: 50%; height: auto; border-radius: 20px;" src="@Data.CartImage"></td>
+                                    <td style="padding: 10px;"><div class="product-title">@Data.CartFoodName</div></td>
+                                    <td style="padding: 10px;"><p class="product-description">@Data.CartAbout</p></td>
+                                    <td style="padding: 10px;"><div class="product-price">@Data.CartPrice</div></td>
+                                    <td style="padding:10px;">
+                                        <div class="product-quantity">
+
+                                            @Html.ActionLink("-", "decreaseQuantity", "Home", new { quantity = quantity, rowItemId = foodId, price = price }, null)
+                                            @quantity
+                                            @Html.ActionLink("+", "increaseQuantity", "Home", new { quantity = quantity, rowItemId = foodId, price = price }, null)
+
+                                        </div>
+                                    </td>
+                                    <td style="padding:10px;">
+                                        <div class="product-removal">
+                                            @Html.ActionLink("Remove Item", "DeleteOneRow", "Home", new { rowItemId = foodId }, null)
+                                            <!--<button class="remove-product">
+                                        Remove
+                                    </button>-->
+                                        </div>
+                                    </td>
+                                    @{
+                                        Data.CartTotalPrice = Data.CartPrice * Data.CartQuantity;
+                                    }
+                                    <td style="padding:10px;"><div class="product-line-price">@Data.CartTotalPrice</div></td>
+                                </tr>
+
+                            }
+                        }
+
+                    }
+
+                </table>
+            </div>
+
+            <div style="" class="totals">
+                <table>
+                    <tr>
+                        <td style="padding:10px;">
+                            <div class="totals-item">
+                                <label>Subtotal</label>
+
+                            </div>
+                        </td>
+                        <td style="padding:10px;">
+                            @{
+                                int subtotal = 0;
+                                if (Model != null)
+                                {
+                                    foreach (var Data in Model)
+                                    {
+                                        subtotal += Data.CartTotalPrice;
+                                    }
+                                }
+                                int cartTotal = subtotal + 5;
+                            }
+
+                            <div class="totals-value" id="cart-subtotal">₺@subtotal</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">
+                            <div class="totals-item">
+                                <label>Shipping</label>
+
+                            </div>
+                        </td>
+                        <td style="padding:10px;">
+                            <div class="totals-value" id="cart-shipping">₺5</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">
+                            <div class="totals-item totals-item-total">
+                                <label>Grand Total</label>
+
+                            </div>
+                        </td>
+                        <td style="padding:10px;">
+                            <div class="totals-value" id="cart-total">₺@cartTotal</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; ">
+                            
+                        </td>
+                        <td>
+                            @Html.ActionLink("Clear the cart", "ClearCart", "Home", new { TableName = "cart" }, null)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <section id="book-a-table" class="book-a-table">
+                <div class="container" data-aos="fade-up">
+
+                    <div class="section-title">
+                        <h2>CUSTOMER</h2>
+                        <p>Information</p>
+                    </div>
+
+                    <form action="userInfo" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 form-group">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                <div class="validate"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 form-group">
+                                <input type="text" name="lastName" class="form-control" id="name" placeholder="Your Last Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                <div class="validate"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                                <div class="validate"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                <div class="validate"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 form-group mt-3">
+                                <input type="text" class="form-control" name="address" id="time" placeholder="Address" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                <div class="validate"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 form-group mt-3">
+
+                                <select class="form-control" id="payment" name="payment" placeholder="payment">
+                                    <option value="Credit/Debit Card">Credit/Debit Card</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+
+                                <!--
+                        <input type="number" class="form-control" name="people" id="people" placeholder="# of people" data-rule="minlen:1" data-msg="Please enter at least 1 chars">
+                        <div class="validate"></div>-->
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
+                            <div class="validate"></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="loading">Loading</div>
+                            <div class="error-message"></div>
+                            <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
+                        </div>
+                        <div class="text-center"><button type="submit">Checkout</button></div>
+                    </form>
+
+                </div>
+            </section><!-- End Book A Table Section -->
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+    </main><!-- End #main -->
+        </div>
+@{ 
+        if (TempData["msg1"] != null)
+        {
+           <script>
+               alert('@TempData["msg1"]')
+           </script>
+        }
+}
